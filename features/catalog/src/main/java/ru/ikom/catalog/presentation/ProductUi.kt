@@ -1,9 +1,9 @@
-package ru.ikom.network.products.model
+package ru.ikom.catalog.presentation
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProductDTO(
+data class ProductUi(
     val brand: String,
     val category: String,
     val description: String,

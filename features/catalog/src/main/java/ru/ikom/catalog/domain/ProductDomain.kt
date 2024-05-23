@@ -1,9 +1,6 @@
-package ru.ikom.network.products.model
+package ru.ikom.catalog.domain
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class ProductDTO(
+data class ProductDomain(
     val brand: String,
     val category: String,
     val description: String,
