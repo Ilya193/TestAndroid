@@ -6,8 +6,10 @@ import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import ru.ikom.catalog.di.CatalogComponent
 import ru.ikom.catalog.di.CatalogComponentProvider
+import ru.ikom.details.di.DetailsComponent
+import ru.ikom.details.di.DetailsComponentProvider
 
-class App : Application(), ImageLoaderFactory, CatalogComponentProvider {
+class App : Application(), ImageLoaderFactory, CatalogComponentProvider, DetailsComponentProvider {
 
     lateinit var appComponent: AppComponent
 
@@ -18,6 +20,10 @@ class App : Application(), ImageLoaderFactory, CatalogComponentProvider {
 
     override fun provideCatalogComponent(): CatalogComponent {
         return appComponent.catalogComponent().create()
+    }
+
+    override fun provideDetailsComponent(): DetailsComponent {
+        return appComponent.detailsComponent().create()
     }
 
     override fun newImageLoader(): ImageLoader {
