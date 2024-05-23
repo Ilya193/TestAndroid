@@ -1,0 +1,5 @@
+<resources>
+    <string name="no_connection">Нет подключения к сети</string>
+    <string name="generic_error">Произошла ошибка</string>
+    <string name="retry">Попробовать снова</string>
+</resources>
