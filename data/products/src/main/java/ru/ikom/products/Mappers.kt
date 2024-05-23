@@ -14,7 +14,7 @@ internal fun ProductDTO.toProductData(): ProductData =
         discountPercentage,
         id,
         images,
-        price,
+        price.toInt(),
         rating,
         stock,
         thumbnail,
