@@ -8,13 +8,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.ikom.catalog.presentation.CatalogFragment
 import ru.ikom.catalog.presentation.CatalogRouter
-import javax.inject.Inject
+import ru.ikom.details.presentation.DetailsFragment
+import ru.ikom.details.presentation.DetailsRouter
 
 interface Navigation<T>  {
     fun read(): StateFlow<T>
     fun update(value: T)
 
-    class Base : Navigation<LaunchScreenMode>, CatalogRouter {
+    class Base : Navigation<LaunchScreenMode>, CatalogRouter, DetailsRouter {
         private val screen = MutableStateFlow<LaunchScreenMode>(LaunchScreenMode.Empty())
 
         override fun read(): StateFlow<LaunchScreenMode> = screen.asStateFlow()
@@ -24,7 +25,7 @@ interface Navigation<T>  {
         }
 
         override fun openDetails(data: String) {
-            TODO()
+            update(DetailsScreen(data))
         }
 
         override fun coup() {
@@ -46,9 +47,24 @@ interface LaunchScreenMode {
         }
     }
 
+    abstract class ReplaceWithBackstack(
+        private val fragment: Fragment,
+        private val name: String? = null
+    ) : LaunchScreenMode {
+        override fun show(supportFragmentManager: FragmentManager, container: Int) {
+            supportFragmentManager.commit {
+                replace(container, fragment)
+                addToBackStack(name)
+            }
+        }
+    }
+
     class Coup : LaunchScreenMode
 
     class Empty : LaunchScreenMode
 }
 
 class CatalogScreen : LaunchScreenMode.Replace(CatalogFragment.newInstance())
+class DetailsScreen(
+    data: String
+) : LaunchScreenMode.ReplaceWithBackstack(DetailsFragment.newInstance(data))

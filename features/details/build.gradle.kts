@@ -1,22 +1,19 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
-    namespace = "ru.ikom.products"
+    namespace = "ru.ikom.details"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ru.ikom.products"
         minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildFeatures {
@@ -43,19 +40,12 @@ android {
 
 dependencies {
     implementation(project(":common"))
-    implementation(project(":core:network"))
-    implementation(project(":features:catalog"))
-    implementation(project(":data:products"))
-    implementation(project(":features:details"))
 
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
 
-    implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization)
-    implementation(libs.converter.kotlinx.serialization)
-
     implementation(libs.coil)
 
-    implementation(libs.fragment.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 }

@@ -11,6 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import ru.ikom.catalog.di.CatalogComponent
 import ru.ikom.catalog.presentation.CatalogRouter
+import ru.ikom.details.di.DetailsComponent
+import ru.ikom.details.presentation.DetailsRouter
 import ru.ikom.network.products.ProductsService
 import javax.inject.Singleton
 
@@ -20,9 +22,11 @@ interface AppComponent {
     fun inject(activity: MainActivity)
 
     fun catalogComponent(): CatalogComponent.Factory
+
+    fun detailsComponent(): DetailsComponent.Factory
 }
 
-@Module(subcomponents = [CatalogComponent::class])
+@Module(subcomponents = [CatalogComponent::class, DetailsComponent::class])
 class AppSubcomponents
 
 @Module
@@ -39,6 +43,10 @@ class AppModule {
     @Singleton
     @Provides
     fun provideCatalogRouter(navigation: Navigation.Base): CatalogRouter = navigation
+
+    @Singleton
+    @Provides
+    fun provideDetailsRouter(navigation: Navigation.Base): DetailsRouter = navigation
 
     @Provides
     @Singleton

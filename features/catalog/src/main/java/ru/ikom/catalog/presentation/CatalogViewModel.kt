@@ -49,6 +49,10 @@ class CatalogViewModel(
         }
     }
 
+    override fun openDetails(data: String) = router.openDetails(data)
+
+    override fun coup() = router.coup()
+
     class Factory(
         private val router: CatalogRouter,
         private val fetchProductsUseCase: FetchProductsUseCase,
@@ -58,10 +62,6 @@ class CatalogViewModel(
             return CatalogViewModel(router, fetchProductsUseCase, dispatcher) as T
         }
     }
-
-    override fun openDetails(data: String) = router.openDetails(data)
-
-    override fun coup() = router.coup()
 }
 
 data class CatalogUiState(
