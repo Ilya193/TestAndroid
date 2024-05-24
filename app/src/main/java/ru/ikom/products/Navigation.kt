@@ -6,6 +6,8 @@ import androidx.fragment.app.commit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import ru.ikom.basket.presentation.BasketFragment
+import ru.ikom.basket.presentation.BasketRouter
 import ru.ikom.catalog.presentation.CatalogFragment
 import ru.ikom.catalog.presentation.CatalogRouter
 import ru.ikom.details.presentation.DetailsFragment
@@ -15,7 +17,7 @@ interface Navigation<T>  {
     fun read(): StateFlow<T>
     fun update(value: T)
 
-    class Base : Navigation<LaunchScreenMode>, CatalogRouter, DetailsRouter {
+    class Base : Navigation<LaunchScreenMode>, CatalogRouter, DetailsRouter, BasketRouter {
         private val screen = MutableStateFlow<LaunchScreenMode>(LaunchScreenMode.Empty())
 
         override fun read(): StateFlow<LaunchScreenMode> = screen.asStateFlow()
@@ -26,6 +28,10 @@ interface Navigation<T>  {
 
         override fun openDetails(data: String) {
             update(DetailsScreen(data))
+        }
+
+        override fun openBasket() {
+            update(BasketScreen())
         }
 
         override fun coup() {
@@ -68,3 +74,4 @@ class CatalogScreen : LaunchScreenMode.Replace(CatalogFragment.newInstance())
 class DetailsScreen(
     data: String
 ) : LaunchScreenMode.ReplaceWithBackstack(DetailsFragment.newInstance(data))
+class BasketScreen : LaunchScreenMode.ReplaceWithBackstack(BasketFragment.newInstance())

@@ -37,5 +37,8 @@ dependencies {
     implementation(project(":core:network"))
 
     implementation(libs.dagger)
+    implementation(project(":core:database"))
     ksp(libs.dagger.compiler)
+
+    implementation(libs.kotlinx.coroutines.core)
 }
