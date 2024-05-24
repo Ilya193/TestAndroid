@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -15,6 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -36,13 +42,22 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
+    implementation(project(":core:network"))
+    implementation(project(":features:catalog"))
+    implementation(project(":data:products"))
+    implementation(project(":features:details"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.dagger)
+    implementation(project(":core:database"))
+    implementation(project(":features:basket"))
+    ksp(libs.dagger.compiler)
+
+    implementation(libs.retrofit)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.converter.kotlinx.serialization)
+
+    implementation(libs.coil)
+
+    implementation(libs.fragment.ktx)
 }

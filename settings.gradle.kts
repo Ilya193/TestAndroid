@@ -21,4 +21,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "Products"
 include(":app")
- 
+include(":core")
+include(":data")
+include(":features")
+include(":common")
+include(":core:network")
+include(":data:products")
+include(":features:catalog")
+include(":features:details")
+include(":core:database")
+include(":features:basket")
