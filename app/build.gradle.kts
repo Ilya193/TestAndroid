@@ -49,6 +49,8 @@ dependencies {
     implementation(project(":features:details"))
 
     implementation(libs.dagger)
+    implementation(project(":core:database"))
+    implementation(project(":features:basket"))
     ksp(libs.dagger.compiler)
 
     implementation(libs.retrofit)

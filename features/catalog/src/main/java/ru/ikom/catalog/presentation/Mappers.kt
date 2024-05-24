@@ -4,19 +4,11 @@ import ru.ikom.catalog.R
 import ru.ikom.catalog.domain.ErrorType
 import ru.ikom.catalog.domain.ProductDomain
 
-fun ProductDomain.toProductUi(): ProductUi = ProductUi(
-    brand,
-    category,
-    description,
-    discountPercentage,
-    id,
-    images,
-    price,
-    rating,
-    stock,
-    thumbnail,
-    title
-)
+fun ProductDomain.toProductUi(): ProductUi =
+    ProductUi(id, title, description, price, thumbnail, added)
+
+fun ProductUi.toProductDomain(): ProductDomain =
+    ProductDomain(id, title, description, price, thumbnail, added)
 
 fun ErrorType.getMessage(): Int {
     return when (this) {

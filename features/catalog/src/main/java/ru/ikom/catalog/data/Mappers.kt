@@ -4,16 +4,7 @@ import ru.ikom.catalog.domain.ProductDomain
 import ru.ikom.products.ProductData
 
 fun ProductData.toProductDomain(): ProductDomain =
-    ProductDomain(
-        brand,
-        category,
-        description,
-        discountPercentage,
-        id,
-        images,
-        price,
-        rating,
-        stock,
-        thumbnail,
-        title
-    )
+    ProductDomain(id, title, description, price, thumbnail)
+
+fun ProductDomain.toProductData(): ProductData =
+    ProductData(id, price, thumbnail, title, description)

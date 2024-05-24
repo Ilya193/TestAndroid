@@ -24,9 +24,11 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>()
         ViewModelProvider(this, viewModelFactory.get())[CatalogViewModel::class.java]
     }
 
-    private val adapter = ProductsAdapter {
+    private val adapter = ProductsAdapter({
         viewModel.action(Event.OpenDetails(it))
-    }
+    }, { product ->
+        viewModel.action(Event.AddProduct(product))
+    })
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,6 +63,10 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>()
                     }
                 }
             }
+        }
+
+        binding.icBasket.setOnClickListener {
+            viewModel.action(Event.OpenBasket())
         }
     }
 

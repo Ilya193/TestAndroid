@@ -13,20 +13,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="@id/tvTitle"/>
+    <ImageView
+        android:id="@+id/icAdded"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+        app:layout_constraintEnd_toEndOf="@id/thumbnail" />
 
     <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@id/tvCategory" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
