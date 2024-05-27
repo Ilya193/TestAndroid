@@ -19,15 +19,7 @@ interface DetailsComponent {
 }
 
 @Module
-class DetailsModule {
-
-    @Provides
-    fun provideDetailsViewModelFactory(
-        router: DetailsRouter,
-        dispatcher: CoroutineDispatcher
-    ): DetailsViewModel.Factory =
-        DetailsViewModel.Factory(router, dispatcher)
-}
+class DetailsModule
 
 interface DetailsComponentProvider {
     fun provideDetailsComponent(): DetailsComponent

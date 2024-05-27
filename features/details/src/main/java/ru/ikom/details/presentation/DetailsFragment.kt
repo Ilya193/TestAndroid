@@ -21,10 +21,10 @@ import javax.inject.Inject
 class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>() {
 
     @Inject
-    lateinit var viewModelFactory: Lazy<DetailsViewModel.Factory>
+    lateinit var viewModelFactory: DetailsViewModel.Factory.Factory
 
     override val viewModel: DetailsViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory.get())[DetailsViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory.create(data))[DetailsViewModel::class.java]
     }
 
     private var data = ""
@@ -44,8 +44,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.action(Event.Init(data))
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.flowWithLifecycle(lifecycle).collect { state ->
                 state.product?.let {
