@@ -1,11 +1,9 @@
 package ru.ikom.basket.di
 
 import androidx.lifecycle.ViewModel
-import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import ru.ikom.basket.data.BasketRepositoryImpl
@@ -17,7 +15,6 @@ import ru.ikom.basket.presentation.BasketRouter
 import ru.ikom.basket.presentation.BasketViewModel
 import ru.ikom.common.Feature
 import ru.ikom.products.cache.ProductsCacheDataSource
-import ru.ikom.products.cache.ProductsCacheDataSourceImpl
 import kotlin.properties.Delegates
 
 @Component(modules = [BasketModule::class], dependencies = [BasketDeps::class])

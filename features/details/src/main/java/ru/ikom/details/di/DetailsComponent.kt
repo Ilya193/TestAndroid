@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import ru.ikom.common.Feature
 import ru.ikom.details.presentation.DetailsFragment
 import ru.ikom.details.presentation.DetailsRouter
-import ru.ikom.details.presentation.DetailsViewModel
 import kotlin.properties.Delegates
 
 @Component(modules = [DetailsModule::class], dependencies = [DetailsDeps::class])

@@ -14,15 +14,12 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
-import ru.ikom.basket.di.BasketComponent
 import ru.ikom.basket.di.BasketDeps
 import ru.ikom.basket.presentation.BasketRouter
-import ru.ikom.catalog.di.CatalogComponent
 import ru.ikom.catalog.di.CatalogDeps
 import ru.ikom.catalog.presentation.CatalogRouter
 import ru.ikom.database.products.ProductsDB
 import ru.ikom.database.products.ProductsDao
-import ru.ikom.details.di.DetailsComponent
 import ru.ikom.details.di.DetailsDeps
 import ru.ikom.details.presentation.DetailsRouter
 import ru.ikom.network.products.ProductsService
@@ -31,7 +28,6 @@ import ru.ikom.products.cache.ProductsCacheDataSourceImpl
 import ru.ikom.products.cloud.ProductsCloudDataSource
 import ru.ikom.products.cloud.ProductsCloudDataSourceImpl
 import javax.inject.Scope
-import javax.inject.Singleton
 
 @Component(modules = [AppModule::class])
 @AppScope

@@ -1,11 +1,9 @@
 package ru.ikom.catalog.di
 
 import androidx.lifecycle.ViewModel
-import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import ru.ikom.catalog.data.CatalogRepositoryImpl
@@ -20,9 +18,7 @@ import ru.ikom.catalog.presentation.CatalogRouter
 import ru.ikom.catalog.presentation.CatalogViewModel
 import ru.ikom.common.Feature
 import ru.ikom.products.cache.ProductsCacheDataSource
-import ru.ikom.products.cache.ProductsCacheDataSourceImpl
 import ru.ikom.products.cloud.ProductsCloudDataSource
-import ru.ikom.products.cloud.ProductsCloudDataSourceImpl
 import kotlin.properties.Delegates
 
 @Component(modules = [CatalogModule::class], dependencies = [CatalogDeps::class])
