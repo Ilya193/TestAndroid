@@ -12,6 +12,7 @@ import javax.inject.Inject
 class ProductsCacheDataSourceImpl @Inject constructor(
     private val dao: ProductsDao
 ) : ProductsCacheDataSource {
+
     override suspend fun fetchProducts(): List<ProductData> {
         return dao.fetchProducts().map { it.toProductData() }
     }

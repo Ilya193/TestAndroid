@@ -2,20 +2,19 @@ package ru.ikom.details.presentation
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import dagger.Lazy
 import kotlinx.coroutines.launch
 import ru.ikom.common.BaseFragment
 import ru.ikom.details.R
 import ru.ikom.details.databinding.FragmentDetailsBinding
-import ru.ikom.details.di.DetailsComponentProvider
+import ru.ikom.details.di.DetailsComponentViewModel
 import javax.inject.Inject
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>() {
@@ -31,7 +30,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireContext().applicationContext as DetailsComponentProvider).provideDetailsComponent().inject(this)
+        ViewModelProvider(this).get<DetailsComponentViewModel>().detailsComponent.inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import dagger.Lazy
 import kotlinx.coroutines.launch
 import ru.ikom.basket.databinding.FragmentBasketBinding
-import ru.ikom.basket.di.BasketComponentProvider
+import ru.ikom.basket.di.BasketComponentViewModel
 import ru.ikom.common.BaseFragment
 import javax.inject.Inject
 
@@ -32,7 +33,7 @@ class BasketFragment : BaseFragment<FragmentBasketBinding, BasketViewModel>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireContext().applicationContext as BasketComponentProvider).provideBasketComponent().inject(this)
+        ViewModelProvider(this).get<BasketComponentViewModel>().basketComponent.inject(this)
     }
 
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentBasketBinding =

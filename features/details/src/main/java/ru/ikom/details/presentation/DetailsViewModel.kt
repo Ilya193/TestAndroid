@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import ru.ikom.common.Feature
 
 class DetailsViewModel(
     private val data: String,
@@ -44,6 +45,7 @@ class DetailsViewModel(
         }
 
         @AssistedFactory
+        @Feature
         interface Factory {
             fun create(@Assisted data: String): DetailsViewModel.Factory
         }

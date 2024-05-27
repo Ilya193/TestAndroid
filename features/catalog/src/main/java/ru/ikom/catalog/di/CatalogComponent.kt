@@ -1,10 +1,13 @@
 package ru.ikom.catalog.di
 
+import androidx.lifecycle.ViewModel
 import dagger.Binds
+import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import ru.ikom.catalog.data.CatalogRepositoryImpl
 import ru.ikom.catalog.domain.AddProductUseCase
 import ru.ikom.catalog.domain.CatalogRepository
@@ -15,24 +18,30 @@ import ru.ikom.catalog.domain.ProductsFromCacheWithFlowUseCase
 import ru.ikom.catalog.presentation.CatalogFragment
 import ru.ikom.catalog.presentation.CatalogRouter
 import ru.ikom.catalog.presentation.CatalogViewModel
+import ru.ikom.common.Feature
 import ru.ikom.products.cache.ProductsCacheDataSource
 import ru.ikom.products.cache.ProductsCacheDataSourceImpl
 import ru.ikom.products.cloud.ProductsCloudDataSource
 import ru.ikom.products.cloud.ProductsCloudDataSourceImpl
+import kotlin.properties.Delegates
 
-@Subcomponent(modules = [BindsCatalogModule::class, CatalogModule::class])
+@Component(modules = [CatalogModule::class], dependencies = [CatalogDeps::class])
+@Feature
 interface CatalogComponent {
     fun inject(fragment: CatalogFragment)
 
-    @Subcomponent.Factory
-    interface Factory {
-        fun create(): CatalogComponent
+    @Component.Builder
+    interface Builder {
+        fun deps(deps: CatalogDeps): Builder
+
+        fun build(): CatalogComponent
     }
 }
 
 @Module
 class CatalogModule {
     @Provides
+    @Feature
     fun provideCatalogRepository(
         cloudDataSource: ProductsCloudDataSource,
         cacheDataSource: ProductsCacheDataSource
@@ -40,6 +49,7 @@ class CatalogModule {
         CatalogRepositoryImpl(cloudDataSource, cacheDataSource)
 
     @Provides
+    @Feature
     fun provideCatalogViewModelFactory(
         router: CatalogRouter,
         fetchProductsUseCase: FetchProductsUseCase,
@@ -58,17 +68,28 @@ class CatalogModule {
             deleteProductUseCase,
             dispatcher
         )
+
+    @Provides
+    @Feature
+    fun provideCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }
 
-@Module
-interface BindsCatalogModule {
-    @Binds
-    fun bindsProductsCloudDataSource(cloudDataSource: ProductsCloudDataSourceImpl): ProductsCloudDataSource
-
-    @Binds
-    fun bindsProductsCacheDataSource(cacheDataSource: ProductsCacheDataSourceImpl): ProductsCacheDataSource
+interface CatalogDeps {
+    val catalogRouter: CatalogRouter
+    val productsCloudDataSource: ProductsCloudDataSource
+    val productsCacheDataSource: ProductsCacheDataSource
 }
 
-interface CatalogComponentProvider {
-    fun provideCatalogComponent(): CatalogComponent
+interface CatalogDepsProvider {
+    var deps: CatalogDeps
+
+    companion object : CatalogDepsProvider by CatalogDepsImpl
+}
+
+object CatalogDepsImpl : CatalogDepsProvider {
+    override var deps: CatalogDeps by Delegates.notNull()
+}
+
+class CatalogComponentViewModel : ViewModel() {
+    val catalogComponent = DaggerCatalogComponent.builder().deps(CatalogDepsProvider.deps).build()
 }
