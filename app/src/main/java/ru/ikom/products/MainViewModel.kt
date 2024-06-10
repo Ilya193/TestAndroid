@@ -3,10 +3,9 @@ package ru.ikom.products
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
 class MainViewModel(
-    private val navigation: Navigation<LaunchScreenMode>
+    private val navigation: Navigation<LaunchScreenMode>,
 ) : ViewModel() {
 
     fun init(first: Boolean) {
