@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import dagger.Lazy
 import kotlinx.coroutines.launch
 import ru.ikom.catalog.databinding.FragmentCatalogBinding
-import ru.ikom.catalog.di.CatalogComponentProvider
+import ru.ikom.catalog.di.CatalogComponentViewModel
 import ru.ikom.common.BaseFragment
 import javax.inject.Inject
 
@@ -32,7 +33,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireContext().applicationContext as CatalogComponentProvider).provideCatalogComponent().inject(this)
+        ViewModelProvider(this).get<CatalogComponentViewModel>().catalogComponent.inject(this)
     }
 
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentCatalogBinding =
